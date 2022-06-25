@@ -11,16 +11,19 @@ const axiosInstanceDS = axios.create({
 const initRoutes = (app: Application) => {
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
-    app.post(`${apiPrefix}/init-class-analyze`, (req, res) => {
-        console.log('path', req.file.path);
+    app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
+        console.log('path', req.file);
 
         res.send({
             path: req.file.path
         });
 
-        // axiosInstanceDS.post("/class-analyze", {
-        //     inputVideoPath: req.file.path
-        // });
+        const { status, data } = await axiosInstanceDS.post("/class-analyze", {
+            filename: req.file.path
+        });
+
+        console.log({ status, data });
+        
     });
 
     // Принимаем результат формирования "класса" из DS сервиса
