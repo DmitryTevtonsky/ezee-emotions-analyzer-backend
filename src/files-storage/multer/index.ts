@@ -24,7 +24,8 @@ const configureMulter = (app: Application) => {
         
         const filePath = path.resolve(__dirname, `../../../../ciferhack2022-ds/demo_video/${outputVideoName}`);        
         console.log('output',{outputVideoName, filePath});
-        res.sendFile(filePath);
+
+        res.send(filePath);
     });
 }
 
