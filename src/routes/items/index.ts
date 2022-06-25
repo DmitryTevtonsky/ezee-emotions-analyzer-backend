@@ -12,7 +12,7 @@ const axiosInstanceDS = axios.create({
 });
 
 const initRoutes = (app: Application) => {
-    const echo = sockjs.createServer({ sockjs_url: 'http://84.252.137.43:3000', prefix: '/echo', websocket: true });
+    const echo = sockjs.createServer({ prefix: '/echo', websocket: true });
     console.log(echo);
     
     echo.on('connection', (conn) => {
