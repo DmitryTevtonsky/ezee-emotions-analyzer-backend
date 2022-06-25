@@ -69,13 +69,14 @@ const initRoutes = (app: Application, io: Server) => {
         }
 
         if (status === 'finished') {       
-              
+            console.log('!bufferData', bufferData);
+
             const data = bufferData.reduce((acc, el) => {
                 acc[el.emotion] = (acc[el.emotion] || 0) + 1;
                 return acc;
               }, {} as any);
 
-              console.log('!', data);
+              console.log('!data', data);
               
 
             io.emit('finished', 'io')
