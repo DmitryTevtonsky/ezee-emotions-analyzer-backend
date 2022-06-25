@@ -28,7 +28,7 @@ const initRoutes = (app: Application) => {
     });
 
     const server = http.createServer(app);
-    echo.installHandlers(server, {prefix:'/ws'});
+    echo.installHandlers(server, {prefix:'/echo'});
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
