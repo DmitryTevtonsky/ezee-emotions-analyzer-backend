@@ -12,9 +12,8 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
-const initRoutes = (app: Application) => {
+const initRoutes = (app: Application, io: Server) => {
     
-
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
         try {
@@ -50,7 +49,7 @@ const initRoutes = (app: Application) => {
         }
 
         if (status === 'finished') {
-
+            io.emit('finished', 'true')
         }
 
         res.send({});

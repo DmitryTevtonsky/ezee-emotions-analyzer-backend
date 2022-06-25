@@ -57,7 +57,7 @@ async function main() {
       console.log('We are live on ' + PORT);
 
       // const mainDb = client.db('emotions');
-      initRoutes(app);
+      initRoutes(app, io);
     });
   } catch (error) {
     console.log('ERROR EXECUTED: ', error);
