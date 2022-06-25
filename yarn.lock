@@ -205,6 +205,13 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
+"@types/sockjs@^0.3.33":
+  version "0.3.33"
+  resolved "https://registry.yarnpkg.com/@types/sockjs/-/sockjs-0.3.33.tgz#570d3a0b99ac995360e3136fd6045113b1bd236f"
+  integrity sha512-f0KEEe05NvUnat+boPTZ0dgaLZ4SfSouXUgv5noUiefG2ajgKjmETo9ZJyuqsl7dfl2aHlLJUiki6B4ZYldiiw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/swagger-jsdoc@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@types/swagger-jsdoc/-/swagger-jsdoc-6.0.1.tgz#94a99aca0356cb64ad2a6eb903ed034703453801"

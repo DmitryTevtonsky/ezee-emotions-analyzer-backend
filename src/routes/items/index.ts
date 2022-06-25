@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Application } from "express";
 import fs from 'fs';
+import sockjs from 'sockjs';
+import http from 'http';
 
 
 const apiPrefix = "/api";
@@ -11,6 +13,18 @@ const axiosInstanceDS = axios.create({
 
 
 const initRoutes = (app: Application) => {
+    const echo = sockjs.createServer({ prefix: '/ws' });
+
+    echo.on('connection', (conn) => {
+
+        conn.on('data', (message) => {
+            conn.write(message);
+        });
+
+        conn.on('close', () => { });
+    });
+    const server = http.createServer(app);
+    echo.installHandlers(server);
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
@@ -33,17 +47,21 @@ const initRoutes = (app: Application) => {
 
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
-        const bufferData = []
-        console.log('/result-class', req.body);
+        const bufferData = [];
+        const { status, data } = req.body;
 
-        const {status, data} = req.body;
+        console.log('/result-class', { status, data });
 
-        const formattedData = Object.values(data);
+        if (status === 'processing') {
+            const formattedData = Object.values(data);
 
-        console.log('formattedData',formattedData);
-        
+            console.log('formattedData', formattedData);
+
+            bufferData.push(...formattedData);
+        }
+
         if (status === 'finished') {
-            
+
         }
 
         res.send({});
