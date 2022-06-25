@@ -43,9 +43,7 @@ async function main() {
     io.on('connection', (socket) => {
         console.log('a user connected');
 
-        socket.emit('finished', 'socket')
-
-        io.emit('finished', 'io')
+        io.emit('finished', 'a user connected')
 
     });
 
