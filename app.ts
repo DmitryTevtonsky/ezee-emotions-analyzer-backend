@@ -4,11 +4,11 @@ import { MongoClient } from 'mongodb';
 
 import { configureSwagger } from './src/swagger';
 import { configureMulter } from './src/files-storage';
-import { initItemsRoutes } from './src/routes';
+import { initRoutes } from './src/routes';
 
 const PORT = process.env.PORT || 3000;
 
-const uri = "mongodb://localhost:27017"
+// const uri = "mongodb://localhost:27017"
 
 const app = express();
 
@@ -23,22 +23,22 @@ app.use((request, response, next) => {
   next();
 });
 
-configureSwagger(app);
+// configureSwagger(app);
 configureMulter(app);
 
-const client = new MongoClient(uri, { keepAlive: true });
+// const client = new MongoClient(uri, { keepAlive: true });
 
 async function main() {
   try {
-    await client.connect();
+    // await client.connect();
 
     console.log('Connected correctly to server');
 
     app.listen(PORT, () => {
       console.log('We are live on ' + PORT);
 
-      const mainDb = client.db('emotions');
-      initItemsRoutes(app, mainDb);
+      // const mainDb = client.db('emotions');
+      initRoutes(app);
     });
   } catch (error) {
     console.log('ERROR EXECUTED: ', error);

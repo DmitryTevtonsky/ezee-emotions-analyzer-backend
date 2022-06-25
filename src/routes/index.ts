@@ -1,1 +1,1 @@
-export { default as initItemsRoutes } from './items'
+export { default as initRoutes } from './items'

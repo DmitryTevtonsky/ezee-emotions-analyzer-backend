@@ -1,21 +1,36 @@
+import axios from "axios";
 import { Application } from "express";
-import { Db, ObjectId } from 'mongodb';
 
-import allRoute from './all';
-import createRoute from './create'
-import readRoute from './read'
-import updateRoute from './update'
-import deleteRoute from './delete'
 
-const initItemsRoutes = (app: Application, db: Db) => {
-    const collection = db.collection("videos");
-    const apiPrefix = "/api/items";
+const apiPrefix = "/api";
 
-    allRoute(app, collection, apiPrefix);
-    createRoute(app, collection, apiPrefix);
-    readRoute(app, collection, apiPrefix);
-    updateRoute(app, collection, apiPrefix);
-    deleteRoute(app, collection, apiPrefix);
+const axiosInstanceDS = axios.create({
+    baseURL: 'http://127.0.0.1:8081', // DS сервис
+});
+
+const initRoutes = (app: Application) => {
+
+    // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
+    app.post(`${apiPrefix}/create-class`, (req, res) => {
+        console.log('path', req.file.path);
+
+
+        axiosInstanceDS.post("/class-analyze", {
+            inputVideoPath: req.file.path
+        })
+    });
+
+    // Принимаем результат формирования "класса" из DS сервиса
+    app.post(`${apiPrefix}/result-class`, (req, res) => {
+        console.log(req.body);
+
+    });
+
+    app.post(`${apiPrefix}/emotion-analyze`, (req, res) => {
+        console.log(req.body);
+
+
+    });
 }
 
-export default initItemsRoutes;
+export default initRoutes;

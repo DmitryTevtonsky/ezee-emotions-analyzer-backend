@@ -6,7 +6,7 @@ import {v4 as uuid} from 'uuid'
 const configureMulter = (app: Application) => {
     const storageConfig = multer.diskStorage({
         destination: (_req, _file, cb) => {
-            cb(null, "uploads");
+            cb(null, "input");
         },
         filename: (_req, file, cb) => {
             const fileExtension = file.originalname.split('.').pop();
@@ -16,7 +16,7 @@ const configureMulter = (app: Application) => {
         }
     });
 
-    app.use(multer({storage:storageConfig}).single("itemImage"));
+    app.use(multer({storage:storageConfig}).single("videoFile"));
 
     app.get('/uploads/:file', (req, res) => {
         const { file } = req.params;        
