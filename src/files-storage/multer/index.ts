@@ -23,7 +23,7 @@ const configureMulter = (app: Application) => {
         
         console.log({pathToOutputVideo});
         
-        const filePath = path.resolve(__dirname, `../ciferhack2022-ds/demo_video/2022_06_25-15_36_47.avi`);        
+        const filePath = path.resolve(__dirname, `../../../../ciferhack2022-ds/demo_video/2022_06_25-15_36_47.avi`);        
         res.sendFile(filePath);
     });
 }
