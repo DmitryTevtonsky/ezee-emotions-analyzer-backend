@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import http from 'http';
 import { Server } from "socket.io";
+import cors from 'cors';
 
 import { configureSwagger } from './src/swagger';
 import { configureMulter } from './src/files-storage';
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.use(cors());
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded({ extended: false })); //Parse URL-encoded bodies
 app.use(cookieParser());
