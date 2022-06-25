@@ -14,9 +14,10 @@ const axiosInstanceDS = axios.create({
 
 const initRoutes = (app: Application) => {
     const server = http.createServer(app);
-    const io = new Server(server, {
-        path: '/ws'
-    });
+    console.log({server});
+    
+    const io = new Server(server);
+    console.log({io});
 
     io.on('connection', (socket) => {
         console.log('a user connected');
