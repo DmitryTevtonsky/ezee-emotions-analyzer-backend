@@ -12,18 +12,20 @@ const initRoutes = (app: Application) => {
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
-        console.log('path', req.file);
+        try {
+            console.log('path', req.file);
+            const { status, data } = await axiosInstanceDS.post("/class-analyze", {
+                filename: req.file.path
+            });
 
-        res.send({
-            path: req.file.path
-        });
+            console.log({ status, data });
 
-        const { status, data } = await axiosInstanceDS.post("/class-analyze", {
-            filename: req.file.path
-        });
-
-        console.log({ status, data });
-        
+            res.send({
+                path: req.file.path
+            });
+        } catch (error) {
+            console.log('error', error);
+        }
     });
 
     // Принимаем результат формирования "класса" из DS сервиса
