@@ -24,7 +24,7 @@ const initRoutes = (app: Application) => {
             console.log('response from DS', { status, data });
 
             res.send({
-                data
+                pathToOutputVideo: data
             });
         } catch (error) {
             console.log('error', error);
