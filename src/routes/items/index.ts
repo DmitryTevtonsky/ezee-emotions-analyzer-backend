@@ -11,13 +11,16 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
-
 const initRoutes = (app: Application) => {
-    const echo = sockjs.createServer({ prefix: '/ws' });
-
+    const echo = sockjs.createServer({ prefix: '/ws', websocket: true });
+    console.log(echo);
+    
     echo.on('connection', (conn) => {
-
+        console.log('!connection');
+        
         conn.on('data', (message) => {
+            console.log('!data', message);
+
             conn.write(message);
         });
 
