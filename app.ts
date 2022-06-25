@@ -26,28 +26,19 @@ app.use((request, response, next) => {
   next();
 });
 
-// configureSwagger(app);
 configureMulter(app);
 
-// const client = new MongoClient(uri, { keepAlive: true });
 
 async function main() {
   try {
-    // await client.connect();
-
-    console.log('Connected correctly to server');
-
     const server = http.createServer(app);
-    console.log({server});
     
     const io = new Server(server, {
       cors: {
         origin: "http://84.252.137.43",
         credentials: true
       }
-      
     });
-    console.log({io});
 
     io.on('connection', (socket) => {
         console.log('a user connected');

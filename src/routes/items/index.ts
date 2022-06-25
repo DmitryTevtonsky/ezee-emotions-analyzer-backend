@@ -49,7 +49,9 @@ const initRoutes = (app: Application, io: Server) => {
         }
 
         if (status === 'finished') {
-            io.emit('finished', 'true')
+            console.log(io);
+            
+            io.emit('finished', 'io')
         }
 
         res.send({});
