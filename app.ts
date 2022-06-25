@@ -51,6 +51,11 @@ async function main() {
 
     io.on('connection', (socket) => {
         console.log('a user connected');
+
+        socket.emit('finished', 'socket')
+
+        io.emit('finished', 'io')
+
     });
 
     server.listen(PORT, () => {
