@@ -19,7 +19,7 @@ app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded({ extended: false })); //Parse URL-encoded bodies
 app.use(cookieParser());
 app.use((request, response, next) => {
-  response.header('Access-Control-Allow-Origin', request.headers.origin);
+  response.header('Access-Control-Allow-Origin', '*');
   response.header('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
   response.header('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,DELETE,OPTIONS');
   response.header('Access-Control-Allow-Credentials', 'true');
