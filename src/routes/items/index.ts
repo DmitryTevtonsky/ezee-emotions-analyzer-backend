@@ -65,10 +65,19 @@ const initRoutes = (app: Application, io: Server) => {
 
             console.log('dominantEmotion', dominantEmotion);
 
-            bufferData.push(formattedData);
+            bufferData.push(dominantEmotion);
         }
 
-        if (status === 'finished') {            
+        if (status === 'finished') {       
+              
+            const data = bufferData.reduce((acc, el) => {
+                acc[el.emotion] = (acc[el.emotion] || 0) + 1;
+                return acc;
+              }, {} as any);
+
+              console.log('!', data);
+              
+
             io.emit('finished', 'io')
         }
 
