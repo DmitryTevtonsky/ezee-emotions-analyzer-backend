@@ -13,15 +13,7 @@ const axiosInstanceDS = axios.create({
 });
 
 const initRoutes = (app: Application) => {
-    const server = http.createServer(app);
-    console.log({server});
     
-    const io = new Server(server);
-    console.log({io});
-
-    io.on('connection', (socket) => {
-        console.log('a user connected');
-    });
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {

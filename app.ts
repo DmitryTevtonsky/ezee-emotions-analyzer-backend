@@ -1,8 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import http from 'http';
-import sockjs from 'sockjs';
-import { MongoClient } from 'mongodb';
+import { Server } from "socket.io";
 
 import { configureSwagger } from './src/swagger';
 import { configureMulter } from './src/files-storage';
@@ -36,7 +35,17 @@ async function main() {
 
     console.log('Connected correctly to server');
 
-    app.listen(PORT, () => {
+    const server = http.createServer(app);
+    console.log({server});
+    
+    const io = new Server(server);
+    console.log({io});
+
+    io.on('connection', (socket) => {
+        console.log('a user connected');
+    });
+
+    server.listen(PORT, () => {
       console.log('We are live on ' + PORT);
 
       // const mainDb = client.db('emotions');
