@@ -21,7 +21,6 @@ const configureMulter = (app: Application) => {
     app.get('/output/:outputVideoName', (req, res) => {
         const { outputVideoName } = req.params; 
         
-        
         const filePath = path.resolve(__dirname, `../../../../ciferhack2022-ds/demo_video/${outputVideoName}`);        
         console.log('output',{outputVideoName, filePath});
 

@@ -33,10 +33,17 @@ const initRoutes = (app: Application) => {
 
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
+        const bufferData = []
         console.log('/result-class', req.body);
 
-        if (req.body.status === 'finished') {
+        const {status, data} = req.body;
 
+        const formattedData = Object.values(data);
+
+        console.log('formattedData',formattedData);
+        
+        if (status === 'finished') {
+            
         }
 
         res.send({});
