@@ -42,9 +42,10 @@ async function main() {
     
     const io = new Server(server, {
       cors: {
-        origin: ["*", "https://dev.example.com"],
+        origin: "http://84.252.137.43",
         credentials: true
       }
+      
     });
     console.log({io});
 
