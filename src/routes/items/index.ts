@@ -32,10 +32,10 @@ const initRoutes = (app: Application, io: Server) => {
             console.log('error', error);
         }
     });
-
+    
+    const bufferData: any[] = [] ;
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
-        const bufferData = [];
         const { status, data } = req.body;
 
         console.log('/result-class', { status, data });
