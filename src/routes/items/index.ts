@@ -71,12 +71,12 @@ const initRoutes = (app: Application, io: Server) => {
         if (status === 'finished') {       
             console.log('!bufferData', bufferData);
 
-            const data = bufferData.reduce((acc, el) => {
+            const maximals = bufferData.reduce((acc, el) => {
                 acc[el.emotion] = (acc[el.emotion] || 0) + 1;
                 return acc;
               }, {} as any);
 
-              console.log('!data', data);
+              console.log('!maximals', maximals);
               
 
             io.emit('finished', 'io')
