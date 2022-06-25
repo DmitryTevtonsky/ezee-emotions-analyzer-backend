@@ -41,16 +41,34 @@ const initRoutes = (app: Application, io: Server) => {
         console.log('/result-class', { status, data });
 
         if (status === 'processing') {
-            const formattedData = Object.values(data);
+            const [formattedData]: any = Object.values(data);
 
             console.log('formattedData', formattedData);
 
-            bufferData.push(...formattedData);
+            const emotions = {
+                'Злость': formattedData['Злость'],
+                'Отвращение': formattedData['Отвращение'],
+                'Страх': formattedData['Страх'],
+                'Радость': formattedData['Радость'],
+                'Нейтральное состояние': formattedData['Нейтральное состояние'],
+                'Грусть': formattedData['Грусть'],
+                'Удивление': formattedData['Удивление'],
+            }
+
+            const dominantEmotion = Object.entries(emotions).reduce((dominant, [key,value]) => {
+                if (dominant.value < value) {
+                    dominant.emotion = key;
+                    dominant.value = value;
+                }
+                return dominant;
+            }, {emotion: 'Нейтральное состояние', value: 0});
+
+            console.log('dominantEmotion', dominantEmotion);
+
+            bufferData.push(formattedData);
         }
 
-        if (status === 'finished') {
-            console.log(io);
-            
+        if (status === 'finished') {            
             io.emit('finished', 'io')
         }
 
