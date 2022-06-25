@@ -8,6 +8,10 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
+const calculateClassData = (data) => {
+
+}
+
 const initRoutes = (app: Application) => {
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
@@ -18,7 +22,7 @@ const initRoutes = (app: Application) => {
                 filename: req.file.path
             });
 
-            console.log({ status, data });
+            console.log('response from DS', { status, data });
 
             res.send({
                 path: req.file.path
@@ -30,11 +34,15 @@ const initRoutes = (app: Application) => {
 
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
-        console.log(req.body);
+        console.log('/result-class', req.body);
+
+        res.send({});
     });
 
     app.post(`${apiPrefix}/init-emotion-analyze`, (req, res) => {
         console.log(req.body);
+
+        res.send({});
     });
 }
 
