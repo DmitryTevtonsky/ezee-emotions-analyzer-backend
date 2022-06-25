@@ -12,6 +12,8 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
+const bufferData: any[] = ['kek'];
+
 const initRoutes = (app: Application, io: Server) => {
     
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
@@ -33,7 +35,6 @@ const initRoutes = (app: Application, io: Server) => {
         }
     });
     
-    const bufferData: any[] = [] ;
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
         const { status, data } = req.body;
