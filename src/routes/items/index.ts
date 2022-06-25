@@ -3,6 +3,7 @@ import { Application } from "express";
 import fs from 'fs';
 import sockjs from 'sockjs';
 import http from 'http';
+import { Server } from "socket.io";
 
 
 const apiPrefix = "/api";
@@ -12,31 +13,14 @@ const axiosInstanceDS = axios.create({
 });
 
 const initRoutes = (app: Application) => {
-    const echo = sockjs.createServer({ prefix: '/echo', websocket: true });
-    console.log(echo);
-
-    echo.on('connection', (conn) => {
-        console.log('!connection');
-
-        conn.on('data', (message) => {
-            console.log('!data', message);
-
-            conn.write(message);
-        });
-
-        conn.on('close', () => { });
-    });
-
     const server = http.createServer(app);
-    server.addListener('request', function (req, res) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.writeHead(404);
-        res.end('404 - Nothing here (via sockjs-node test_server)');
+    const io = new Server(server, {
+        path: '/ws'
     });
-    server.addListener('upgrade', function (req, res) {
-        res.end();
+
+    io.on('connection', (socket) => {
+        console.log('a user connected');
     });
-    echo.installHandlers(server, { prefix: '/echo' });
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
@@ -79,11 +63,6 @@ const initRoutes = (app: Application) => {
         res.send({});
     });
 
-    app.post(`${apiPrefix}/init-emotion-analyze`, (req, res) => {
-        console.log(req.body);
-
-        res.send({});
-    });
 }
 
 export default initRoutes;
