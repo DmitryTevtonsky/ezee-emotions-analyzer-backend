@@ -11,25 +11,25 @@ const axiosInstanceDS = axios.create({
 const initRoutes = (app: Application) => {
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
-    app.post(`${apiPrefix}/create-class`, (req, res) => {
+    app.post(`${apiPrefix}/init-class-analyze`, (req, res) => {
         console.log('path', req.file.path);
 
+        res.send({
+            path: req.file.path
+        });
 
-        axiosInstanceDS.post("/class-analyze", {
-            inputVideoPath: req.file.path
-        })
+        // axiosInstanceDS.post("/class-analyze", {
+        //     inputVideoPath: req.file.path
+        // });
     });
 
     // Принимаем результат формирования "класса" из DS сервиса
     app.post(`${apiPrefix}/result-class`, (req, res) => {
         console.log(req.body);
-
     });
 
-    app.post(`${apiPrefix}/emotion-analyze`, (req, res) => {
+    app.post(`${apiPrefix}/init-emotion-analyze`, (req, res) => {
         console.log(req.body);
-
-
     });
 }
 
