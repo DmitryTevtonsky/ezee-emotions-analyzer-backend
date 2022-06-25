@@ -40,7 +40,12 @@ async function main() {
     const server = http.createServer(app);
     console.log({server});
     
-    const io = new Server(server);
+    const io = new Server(server, {
+      cors: {
+        origin: ["*", "https://dev.example.com"],
+        credentials: true
+      }
+    });
     console.log({io});
 
     io.on('connection', (socket) => {
