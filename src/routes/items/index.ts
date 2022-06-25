@@ -5,7 +5,7 @@ import { Application } from "express";
 const apiPrefix = "/api";
 
 const axiosInstanceDS = axios.create({
-    baseURL: 'http://127.0.0.1:8081', // DS сервис
+    baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
 const initRoutes = (app: Application) => {
