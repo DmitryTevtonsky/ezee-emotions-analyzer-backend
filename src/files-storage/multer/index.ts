@@ -18,11 +18,11 @@ const configureMulter = (app: Application) => {
 
     app.use(multer({storage:storageConfig}).single("videoFile"));
 
-    app.get('/uploads/:file', (req, res) => {
-        const { file } = req.params;        
-        const filePath = path.resolve(__dirname, `../../../uploads/${file}`);        
+    app.get('/output/:pathToOutputVideo', (req, res) => {
+        const { pathToOutputVideo } = req.params;        
+        const filePath = pathToOutputVideo; //path.resolve(__dirname, `../../../uploads/${file}`);        
         res.sendFile(filePath);
-    })
+    });
 }
 
 export default configureMulter;
