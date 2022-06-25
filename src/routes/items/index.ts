@@ -12,7 +12,7 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
-const bufferData: any[] = ['kek'];
+const bufferData: any[] = [];
 
 const initRoutes = (app: Application, io: Server) => {
     
@@ -72,15 +72,24 @@ const initRoutes = (app: Application, io: Server) => {
         if (status === 'finished') {       
             console.log('!bufferData', bufferData);
 
-            const maximals = bufferData.reduce((acc, el) => {
+            const maximals: Record<string, number> = bufferData.reduce((acc, el) => {
                 acc[el.emotion] = (acc[el.emotion] || 0) + 1;
                 return acc;
-              }, {} as any);
+              }, {} as Record<string, number>);
 
               console.log('!maximals', maximals);
-              
 
-            io.emit('finished', 'io')
+              const dominantCommonEmotion =  Object.entries(maximals).reduce((dominant, [key,value]) => {
+                if (dominant.value < value) {
+                    dominant.emotion = key;
+                    dominant.value = value;
+                }
+                return dominant;
+            }, {emotion: 'Нейтральное состояние', value: 0});
+              
+            console.log(dominantCommonEmotion);
+            
+            io.emit('finished', dominantCommonEmotion)
         }
 
         res.send({});
