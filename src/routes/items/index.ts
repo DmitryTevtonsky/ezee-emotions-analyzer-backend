@@ -23,13 +23,6 @@ const initRoutes = (app: Application) => {
 
             console.log('response from DS', { status, data });
 
-            // fs.copyFile(data, '/output/test.mp4', (err) => {
-            //     console.log('err', err);
-
-            //     if (err) throw err;
-            //     console.log('source.txt was copied to destination.txt');
-            // });
-
             res.send({
                 data
             });

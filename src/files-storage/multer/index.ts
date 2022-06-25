@@ -18,12 +18,12 @@ const configureMulter = (app: Application) => {
 
     app.use(multer({storage:storageConfig}).single("videoFile"));
 
-    app.get('/output/:pathToOutputVideo', (req, res) => {
-        const { pathToOutputVideo } = req.params; 
+    app.get('/output/:outputVideoName', (req, res) => {
+        const { outputVideoName } = req.params; 
         
-        console.log({pathToOutputVideo});
         
-        const filePath = path.resolve(__dirname, `../../../../ciferhack2022-ds/demo_video/2022_06_25-15_36_47.avi`);        
+        const filePath = path.resolve(__dirname, `../../../../ciferhack2022-ds/demo_video/${outputVideoName}`);        
+        console.log('output',{outputVideoName, filePath});
         res.sendFile(filePath);
     });
 }
