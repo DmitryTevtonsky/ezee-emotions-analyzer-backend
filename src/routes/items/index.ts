@@ -12,7 +12,7 @@ const axiosInstanceDS = axios.create({
 });
 
 const initRoutes = (app: Application) => {
-    const echo = sockjs.createServer({ prefix: '/ws', websocket: true });
+    const echo = sockjs.createServer({ sockjs_url: 'http://127.0.0.1:3000' ,prefix: '/ws', websocket: true });
     console.log(echo);
     
     echo.on('connection', (conn) => {
@@ -26,8 +26,9 @@ const initRoutes = (app: Application) => {
 
         conn.on('close', () => { });
     });
+
     const server = http.createServer(app);
-    echo.installHandlers(server);
+    echo.installHandlers(server, {prefix:'/ws'});
 
     // Принимаем входное видео с фронта, сохраняем видео и отправляем его на анализ в DS
     app.post(`${apiPrefix}/init-class-analyze`, async (req, res) => {
