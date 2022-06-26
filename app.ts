@@ -42,9 +42,6 @@ async function main() {
 
     io.on('connection', (socket) => {
         console.log('a user connected');
-
-        io.emit('finished', 'a user connected')
-
     });
 
     server.listen(PORT, () => {
