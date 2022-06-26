@@ -12,7 +12,7 @@ const axiosInstanceDS = axios.create({
     baseURL: 'http://127.0.0.1:5001', // DS сервис
 });
 
-const bufferData: any[] = [];
+let bufferData: any[] = [];
 
 const initRoutes = (app: Application, io: Server) => {
     
@@ -39,7 +39,7 @@ const initRoutes = (app: Application, io: Server) => {
     app.post(`${apiPrefix}/result-class`, (req, res) => {
         const { status, data } = req.body;
 
-        console.log('/result-class', { status, data });
+        // console.log('/result-class', { status, data });
 
         if (status === 'processing') {
             const [formattedData]: any = Object.values(data);
@@ -89,7 +89,9 @@ const initRoutes = (app: Application, io: Server) => {
               
             console.log(dominantCommonEmotion);
             
-            io.emit('finished', dominantCommonEmotion)
+            io.emit('finished', dominantCommonEmotion);
+
+            bufferData = [];
         }
 
         res.send({});
