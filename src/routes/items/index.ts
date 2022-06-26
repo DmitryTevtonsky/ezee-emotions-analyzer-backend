@@ -62,11 +62,13 @@ const initRoutes = (app: Application, io: Server) => {
                     dominant.value = value;
                 }
                 return dominant;
-            }, {emotion: 'Нейтральное состояние', value: 0});
+            }, {emotion: '', value: 0});
 
             console.log('dominantEmotion', dominantEmotion);
 
-            bufferData.push(dominantEmotion);
+            // bufferData.push(dominantEmotion);
+            bufferData.push({time: formattedData?.time, ...dominantEmotion});
+
         }
 
         if (status === 'finished') {       
