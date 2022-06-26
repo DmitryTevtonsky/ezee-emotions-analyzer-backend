@@ -87,7 +87,7 @@ const initRoutes = (app: Application, io: Server) => {
                 return dominant;
             }, {emotion: 'Нейтральное состояние', value: 0});
               
-            console.log(dominantCommonEmotion);
+            console.log(dominantCommonEmotion, bufferData, bufferData.length);
             
             io.emit('finished', dominantCommonEmotion);
 
